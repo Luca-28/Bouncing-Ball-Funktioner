@@ -1,11 +1,14 @@
+int BallAmount = 1000;  //Defines the number of balls
+
+
 int BoxLength = 500;
 int BoxChange = -1;
 
-float BallX; //Randomizes the balls starting position
-float BallY;
+float[] BallX = new float[BallAmount]; //Randomizes the balls' starting position
+float[] BallY = new float[BallAmount];
 
-float BallSpeedX;  //Randomizes the speed of the ball
-float BallSpeedY;
+float[] BallSpeedX = new float[BallAmount];  //Randomizes the speeds of the ball
+float[] BallSpeedY = new float[BallAmount];
 
 void setup(){
   size(500,500);
@@ -20,18 +23,20 @@ void draw(){
   BoxMorph();
   DrawBox();
   
-  BallMove();
-  DrawBall();
+  BallsMove();
+  DrawBalls();
 }
 
 
 
 void RandomizeStart(){
-  BallX = random(100,500); //Randomizes the balls starting position
-  BallY = random(100,500);
-
-  BallSpeedX = random(2,5);  //Randomizes the speed of the ball
-  BallSpeedY = random(2,5);
+  for(int i = 0; i < BallAmount; i++){
+    BallX[i] = random(100,500); //Randomizes the balls starting position
+    BallY[i] = random(100,500);
+  
+    BallSpeedX[i] = random(2,5);  //Randomizes the speed of the ball
+    BallSpeedY[i] = random(2,5);
+  }
 }
 
 void BoxMorph(){
@@ -47,26 +52,30 @@ void DrawBox(){
   rect(0,0,BoxLength,BoxLength);  //Draws the box
 }
 
-void DrawBall(){
+void DrawBalls(){
   fill(230);
-  ellipse(BallX,BallY,10,10);  //Draws the ball
+  for(int i = 0; i < BallAmount; i++){
+    circle(BallX[i],BallY[i],10);  //Draws the balls
+  }
 }
 
-void BallMove(){
-  BallX = BallX + BallSpeedX;    //Moves the ball
-  BallY = BallY + BallSpeedY;
-  
-  if(BallX > BoxLength || BallX < 0){  //Makes the ball switch direction when it hits the edges
-    BallSpeedX = -BallSpeedX;
-  }
-  if(BallY > BoxLength || BallY < 0){
-    BallSpeedY = -BallSpeedY;
-  }
-  
-  if(BallX > BoxLength){   //Makse sure the ball never gets out of the box
-    BallX = BoxLength;
-  }
-  if(BallY > BoxLength){
-    BallY = BoxLength;
+void BallsMove(){
+  for(int i = 0; i < BallAmount; i++){
+    BallX[i] += BallSpeedX[i];    //Moves the ball
+    BallY[i] += BallSpeedY[i];
+    
+    if(BallX[i] > BoxLength || BallX[i] < 0){  //Makes the balls switch direction when they hit the edges
+      BallSpeedX[i] *= -1;
+    }
+    if(BallY[i] > BoxLength || BallY[i] < 0){
+      BallSpeedY[i] *= -1;
+    }
+    
+    if(BallX[i] > BoxLength){   //Makes sure the balls never get out of the box
+      BallX[i] = BoxLength;
+    }
+    if(BallY[i] > BoxLength){
+      BallY[i] = BoxLength;
+    }
   }
 }
