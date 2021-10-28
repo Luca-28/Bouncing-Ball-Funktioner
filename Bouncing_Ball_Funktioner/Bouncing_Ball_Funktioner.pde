@@ -11,6 +11,7 @@ float[] BallSpeedX = new float[BallAmount];  //Randomizes the speeds of the ball
 float[] BallSpeedY = new float[BallAmount];
 
 void setup(){
+  noStroke();
   size(500,500);
   frameRate(100);
   RandomizeStart();
@@ -31,11 +32,11 @@ void draw(){
 
 void RandomizeStart(){
   for(int i = 0; i < BallAmount; i++){
-    BallX[i] = random(100,500); //Randomizes the balls starting position
-    BallY[i] = random(100,500);
+    BallX[i] = random(10,990); //Randomizes the balls starting position
+    BallY[i] = random(10,990);
   
-    BallSpeedX[i] = random(2,5);  //Randomizes the speed of the ball
-    BallSpeedY[i] = random(2,5);
+    BallSpeedX[i] = random(1,5);  //Randomizes the speed of the ball
+    BallSpeedY[i] = random(1,5);
   }
 }
 
